@@ -1,0 +1,76 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{Fall 2020 CS4641 Homework 2}
+\author{Aman Singh}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{slashbox}
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Sharelatex Example},
+    bookmarks=true,
+    pdfpagemode=FullScreen,
+}
+\begin{document}
+\maketitle
+
+\section*{1.1 Spam Detection}
+Naive Bayes classification uses the formula $p(t|x)=\frac{p(x|t)p(t)}{p(x)}$, where $p(t)$ is the prior
+and $p(x|t)$ is the likelihood. To find if "Your gift" is spam, we must calculate
+$p(\text{spam}|\text{"your gift"}) = p(s|yg)$, which is equal to $p(s|yg)=\frac{p(yg|s)p(s)}{p(yg)}$.
+Calculating the prior probabilities, we get $p(s)=\frac{2}{4}=0.5$ and $p(yg)=\frac{0}{4}=0$. Calculating the likelihood, we
+get $p(yg|s)=\frac{0}{2}=0$. Now, if we try using the normal Bayes classification formula, we will get 
+an undefined answer, as we would have to divide by 0. Instead, we can discard the denominator and
+simnply calculate whether spam or not spam has a bigger probability, using
+$p(s|yg)=p(\text{your}|s)p(\text{gift}|s)=p(y|s)p(g|s)$ and $p(!s|yg)=p(y|!s)p(g|!s)$.
+To use this, we are assuming all words are independent of each other, so we are not considering sentences
+at all. To avoid results of 0, we will add 1 to every probability, which should not affect the final
+classification. The probabilities are as follows: \begin{align*}
+    p(y|s) &= \frac{0+1}{3+5} &= \frac{1}{8} \\
+    p(y|!s) &= \frac{0+1}{4+5} &= \frac{1}{9} \\
+    p(g|s) &= \frac{2+1}{3+5} &= \frac{3}{8} \\
+    p(g|!s) &= \frac{1+1}{4+5} &= \frac{2}{9} \\
+    p(yg|s) &= p(y|s)p(g|s) &= \frac{1}{8}\times\frac{3}{8} &= \frac{3}{64} \\
+    p(yg|!s) &= p(y|!s)p(g|!s) &= \frac{1}{9}\times\frac{2}{9} &= \frac{2}{81}
+\end{align*}
+Since $p(\text{"your gift"}|\text{spam})>p(\text{"your gift}|\text{not spam})$, "your gift" would be 
+classified as spam.
+
+\section*{3.2 Feature Scaling}
+\begin{enumerate}
+    \item The change depends on the data and which column is changed. On average, it exacerbated the
+            variance in the perturbed area, and made the variation proportion unusually high in the first component.
+    \item This change also depends on the data and which column is changed.
+    \item This does not affect the number of linearly independent components, as that is the property of
+            linearly independent components; they are linearly independent of each other, regardless of any scalar
+            multiplied to any column.
+\end{enumerate}
+
+\section*{4.2 About RMSE}
+The RMSE should be as close to 0 as possible. Ideally, if pred and label are the same, RMSE would indeed be 0.
+
+\section*{4.3 Testing: ridge regression}
+\includegraphics*[scale=0.35]{img1.png}
+\includegraphics*[scale=0.35]{img2.png}
+\includegraphics*[scale=0.35]{img3.png}
+\includegraphics*[scale=0.35]{img4.png}
+\includegraphics*[scale=0.35]{img5.png}
+
+\end{document}

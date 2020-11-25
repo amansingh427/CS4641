@@ -1,0 +1,444 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{Fall 2020 CS4641 Homework 1}
+\author{Aman Singh}
+\date{Deadline: September 9, Wednesday, 11:59 pm}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{slashbox}
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Sharelatex Example},
+    bookmarks=true,
+    pdfpagemode=FullScreen,
+}
+\begin{document}
+\maketitle
+\begin{itemize}
+    \item No extension of the deadline is allowed. Late submission will lead to 0 credit.
+    \item Discussion is encouraged on Piazza as part of the Q/A. However, all assignments should be done individually.
+\end{itemize}
+
+\section*{Structure}
+Homework 1 will have two components to it: the theory questions in this file along with a programming portion in a Jupyter notebook. The homework is worth a total of 110 points, where 10 of these are bonus points. The grading breakdown is as follows:
+\begin{enumerate}
+    \item \textbf{Theory ($85+10$ bonus)}: problems 1-4 are worth 85 points and problem 5 is worth 10 bonus points.
+    \item \textbf{Programming ($15$)}: there are four subproblems in this part of the assignment (in the .ipynb file)
+\end{enumerate}
+
+
+\section*{Instructions}
+\begin{itemize}
+    % \item This assignment has no programming, only written questions.
+    \item We will be using Gradescope this semester for submission and grading of assignments. 
+    \item Your write up must be submitted in PDF form, you may use either Latex or markdown, whichever you prefer. \textbf{We will not accept handwritten work.}
+    \item Please make sure to start answering each question on a new page. It makes it more organized to map your answers on GradeScope. When submitting your assignment, you must correctly map pages of your PDF to each question/subquestion to reflect where they appear. Improperly mapped questions may not be graded correctly. For further submission instructions, you may find  \href{https://www.youtube.com/watch?v=KMPoby5g_nE&vl=en}{this video} helpful.
+    \item \textbf{Early Bird Special:} If you can submit 2 out of the first 4 questions by September 2nd, you get a bonus of 5 points for this assignment.
+    \item Make your submission as follows:
+    \begin{itemize}
+    \item Questions 1-4: Submit it in \textcolor{blue}{A1 Written} assignment of gradescope in .pdf format
+    \item Question 5: Submit it in \textcolor{blue}{A1 Written: Bonus Questions} assignment of gradescope in .pdf format
+    \item Submit 2 questions from Q 1-4 in \textcolor{blue}{A1 Written: Early Bird} assignment of gradescope for early bird bonus 
+    \item Submit the programming solutions to \textcolor{blue}{A1 Programming} assignment of gradescope as per the instructions in .ipynb file
+    \end{itemize}
+\end{itemize}
+
+\section{Linear Algebra [20 points]}
+
+\subsection{Determinant and Inverse of Matrix [10pts]}
+Given a matrix $M$:
+
+$$M = \begin{bmatrix} 
+  2 & -4 & 1 \\ 
+  4 & 1 & $x$ \\
+  2 & 1 & 1
+  \end{bmatrix}
+$$
+\begin{enumerate}[label=(\alph*)]
+    \item Calculate the determinant of $M$ for $x$ = -2. [2pts] (Calculation process required.) \newline \begin{flalign}
+        \begin{vmatrix}
+            2 & -4 & 1 \\ 
+            4 & 1 & $x$ \\
+            2 & 1 & 1
+        \end{vmatrix} &= 2\begin{vmatrix}1&1&x\\1&1\end{vmatrix}+4\begin{vmatrix}4&x\\2&1\end{vmatrix}+\begin{vmatrix}4&1\\2&1\end{vmatrix} \\
+        &= 2(1-x)+4(4-2x)+2 \\
+        &= 20-10x
+    \end{flalign}
+    \item Calculate $M^{-1}$ for $x$ = -2.. [4pts] (Calculation process required)\\
+    (\textbf{Hint:} Please double check your answer and make sure $M M^{-1} = I$) \newline \begin{align*}
+        &\begin{pmatrix}[ccc|ccc]
+            2 & -4 & 1 & 1 & 0 & 0\\ 
+            4 & 1 & -2 & 0 & 1 & 0\\
+            2 & 1 & 1 & 0 & 0 & 1
+        \end{pmatrix} \sim \begin{pmatrix}[ccc|ccc]
+            2 & -4 & 1 & 1 & 0 & 0\\ 
+            0 & 9 & -4 & -2 & 1 & 0\\
+            2 & 1 & 1 & 0 & 0 & 1
+        \end{pmatrix} \\ \newline &\sim \begin{pmatrix}[ccc|ccc]
+            2 & -4 & 1 & 1 & 0 & 0\\ 
+            0 & 9 & -4 & -2 & 1 & 0\\
+            0 & 5 & 0 & -1 & 0 & 1
+        \end{pmatrix} \sim \begin{pmatrix}[ccc|ccc]
+            2 & -4 & 1 & 1 & 0 & 0\\
+            0 & 5 & 0 & -1 & 0 & 1 \\
+            0 & 9 & -4 & -2 & 1 & 0
+        \end{pmatrix} \\ & \sim \begin{pmatrix}[ccc|ccc]
+            2 & -4 & 1 & 1 & 0 & 0\\
+            0 & 1 & 0 & -\frac{1}{5} & 0 & \frac{1}{5} \\
+            0 & 9 & -4 & -2 & 1 & 0
+        \end{pmatrix} \sim \begin{pmatrix}[ccc|ccc]
+            2 & -4 & 1 & 1 & 0 & 0\\
+            0 & 1 & 0 & -\frac{1}{5} & 0 & \frac{1}{5} \\
+            0 & 0 & -4 & -\frac{1}{5} & 1 & -\frac{9}{5}
+        \end{pmatrix} \\ & \sim \begin{pmatrix}[ccc|ccc]
+            2 & -4 & 1 & 1 & 0 & 0\\
+            0 & 1 & 0 & -\frac{1}{5} & 0 & \frac{1}{5} \\
+            0 & 0 & 1 & \frac{1}{20} & -\frac{1}{4} & \frac{9}{20}
+        \end{pmatrix} \sim \begin{pmatrix}[ccc|ccc]
+            2 & -4 & 0 & \frac{19}{20} & \frac{1}{4} & -\frac{9}{20}\\
+            0 & 1 & 0 & -\frac{1}{5} & 0 & \frac{1}{5} \\
+            0 & 0 & 1 & \frac{1}{20} & -\frac{1}{4} & \frac{9}{20}
+        \end{pmatrix} \\ & \sim \begin{pmatrix}[ccc|ccc]
+            2 & 0 & 0 & \frac{3}{20} & \frac{1}{4} & -\frac{7}{20}\\
+            0 & 1 & 0 & -\frac{1}{5} & 0 & \frac{1}{5} \\
+            0 & 0 & 1 & \frac{1}{20} & -\frac{1}{4} & \frac{9}{20}
+        \end{pmatrix} \sim \begin{pmatrix}[ccc|ccc]
+            1 & 0 & 0 & \frac{3}{40} & \frac{1}{8} & -\frac{7}{40}\\
+            0 & 1 & 0 & -\frac{1}{5} & 0 & \frac{1}{5} \\
+            0 & 0 & 1 & \frac{1}{20} & -\frac{1}{4} & \frac{9}{20}
+        \end{pmatrix} 
+    \end{align*}
+    \begin{equation}
+        M^{-1}=\begin{pmatrix}
+            \frac{3}{40} & \frac{1}{8} & -\frac{7}{40}\\
+            -\frac{1}{5} & 0 & \frac{1}{5} \\
+            \frac{1}{20} & -\frac{1}{4} & \frac{9}{20}
+        \end{pmatrix}
+    \end{equation}
+    \item What is the relationship between the determinant of $M$ and the determinant of $M^{-1}$ from parts (a) and (b)? [2pts] \newline
+            \emph{The determinants of $M$ and $M^{-1}$ are the same.}
+    \item What happens to the inverse of the matrix if $x$ =2 ? Why? [2pts] \newline
+            \emph{$M$ becomes a singular matrix, as the determinant becomes 0, which means an inverse does not exist.}
+\end{enumerate}
+
+
+\subsection{Singular Value Decomposition [10pts]}
+Given a matrix A:
+
+$$A = \begin{bmatrix}
+  2 & 6 & 0 \\ 
+  -9 & 3 & 0 \\
+  \end{bmatrix}
+$$
+
+\noindent Compute the Singular Value Decomposition (SVD) by following the steps below. Your full calculation process is required.
+\begin{enumerate}[label=(\alph*)]
+\item Calculate all eigenvalues of $AA^{T}$ and $A^{T}A$. [3pts] \newline \begin{align*}
+    AA^T &= \begin{pmatrix}
+        40 & 0 \\
+        0 & 90
+    \end{pmatrix} \\ AA^T-\lambda I&=\begin{pmatrix}
+        40-\lambda & 0 \\
+        0 & 90 - \lambda
+    \end{pmatrix} \\
+    det(AA^T-\lambda I)&=0\\ &=(40-\lambda)(90-\lambda) \\
+    \lambda &= 40, 90 \\
+    A^TA &= \begin{pmatrix}
+        85  & -15  &   0 \\
+        -15  &  45   &  0 \\
+        0   &  0  &   0  \\
+    \end{pmatrix} \\ A^TA-\lambda I&=\begin{pmatrix}
+        85-\lambda  & -15  &   0 \\
+        -15  &  45-\lambda   &  0 \\
+        0   &  0  &   -\lambda  \\
+    \end{pmatrix} \\ det(A^TA-\lambda I)&=0\\ &=-\lambda\begin{pmatrix}
+        85-\lambda  & -15  \\
+        -15  &  45-\lambda
+    \end{pmatrix} \\
+    &=-\lambda((85-\lambda)(45-\lambda)-225) \\
+    &=-\lambda(3600-130\lambda+\lambda^2) \\
+    \lambda &= 0, 40, 90
+\end{align*}
+\item Calculate all eigenvectors of $AA^{T}$ normalized to unit length.  [3pts] \newline \begin{align*}
+    (AA^T-\lambda I)v &= 0 \\
+    \lambda  &= 40 \\
+    \begin{pmatrix}[cc|c]
+        0 & 0  & 0\\
+        0 & 50 & 0
+    \end{pmatrix} \\
+    v_1 &= \begin{pmatrix}
+        1 \\ 0
+    \end{pmatrix} \\
+    \lambda  &= 90 \\
+    \begin{pmatrix}[cc|c]
+        -50 & 0  & 0\\
+        0 & 50 & 0
+    \end{pmatrix} \\
+    v_2 &= \begin{pmatrix}
+        0 \\ 1
+    \end{pmatrix}
+\end{align*}
+\item Calculate all eigenvectors of $A^{T}A$ normalized to unit length.  [3pts] \newline \begin{align*}
+    (A^TA-\lambda I)v &= 0 \\
+    \lambda  &= 0 \\
+    \begin{pmatrix}[ccc|c]
+        85  & -15  &   0  & 0\\
+        -15  &  45   &  0 & 0 \\
+        0   &  0  &   0  & 0 \\
+    \end{pmatrix} \\
+    v_1 &= \begin{pmatrix}
+        0 \\ 0 \\ 1
+    \end{pmatrix} \\
+    \lambda  &= 40 \\
+    \begin{pmatrix}[ccc|c]
+        45  & -15  &   0  & 0\\
+        -15  &  5   &  0 & 0 \\
+        0   &  0  &   -40  & 0 \\
+    \end{pmatrix} \\
+    v_2 &= \begin{pmatrix}
+        1 \\ 3 \\ 0
+    \end{pmatrix}
+    \lambda  &= 90 \\
+    \begin{pmatrix}[ccc|c]
+        -5  & -15  &   0  & 0\\
+        -15  &  -45   &  0 & 0 \\
+        0   &  0  &   -49  & 0 \\
+    \end{pmatrix} \\
+    v_3 &= \begin{pmatrix}
+        -3 \\ 1 \\ 0
+    \end{pmatrix}
+\end{align*}
+\item Write out the SVD of matrix A in the following form  [1pts]: $$A=U\Sigma V^{T}$$ \newline \begin{align*}
+    A = \begin{pmatrix}
+        0 & 1 \\ 1 & 0
+    \end{pmatrix}\begin{pmatrix}
+        \sqrt{90} & 0 & 0\\
+        0 & \sqrt{40} & 0
+    \end{pmatrix}\begin{pmatrix}
+        -\frac{3}{\sqrt{10}} & \frac{1}{\sqrt{10}} & 0 \\
+        \frac{1}{\sqrt{10}} & \frac{3}{\sqrt{10}} & 0 \\
+        0 & 0 & 1
+    \end{pmatrix}
+\end{align*}\textbf{Hints}:
+\begin{itemize}
+\item The square roots of the positive eigenvalues make up the singular values, the diagonal entries in $\Sigma$. They will be arranged in descending order, all other values in $\Sigma$ are $0$
+\item eigenvectors of $A^{T}A$ make up the rows of $V^{T}$ 
+\item eigenvectors of $AA^{T}$ make up the  rows of U
+\item Reconstruct matrix A from the SVD to check your answer
+\end{itemize}
+\end{enumerate}
+
+
+\section{Expectation, Co-variance and Independence [25pts]}
+Suppose $X,Y$ and $Z$ are distinct random variables. Let $X$ follow a distribution with probability mass function 
+\[
+p_X(x) =  \begin{cases}
+q \quad &x=c\\
+1-q \quad &x=-c
+\end{cases}
+\]
+where $c>0$ is a positive constant and $q\in[0,1]$. Let $Y$ be independent from $X$ and follow the standard normal (Gaussian) distribution, i.e., $Y\sim N(0,1)$, and let us define $Z$ by $Z=\frac{Y}{X}$. (Note: the computations below may be functions of $c$ and $q$)
+\begin{enumerate}[label=(\alph*)]
+\item What is the expectation and variance of $X$? [6pts] \newline \begin{align*}
+    E(X) &= \sum_x xp_X(x) \\
+    &= cq + (-c)(1-q) \\
+    &= cq - c + cq \\
+    E(X) &= c(2q - 1) \\
+    E(X^2) &= \sum_x x^2p_X(x) = c^2q+c^2(1-q) \\
+    &= c^2 \\
+    Var(X) &= E(X^2) - (E(X))^2 \\
+    &= c^2 - (c(2q-1))^2 \\
+    &= c^2 - (c^2(4q^2-4q+1)) \\
+    &= c^2(4q-4q^2) \\
+    Var(X) &= 4c^2q(1-q)
+\end{align*}
+\item Show that $Z$ also follows a normal distribution and compute its expected value and variance. [10pts] \newline
+        \emph{Since $X$ and $Y$ are independent of each other, and $Z=\frac{X}{Y}$, their conditional and unconditional distributions are the same, and $Z$ must have a normal distribution.} \newline \begin{align*}
+            E(Z) &= E(\frac{Y}{X}) \\
+            &= E(Y)\times E(\frac{1}{X}) \\
+            E(Y) &= 0 \\
+            E(Z) &= 0 \\
+            Var(Z) &= E(Z^2) - (E(Z))^2 \\
+            &=E(\frac{Y^2}{X^2})=E(Y^2)\times E(\frac{1}{X^2}) \\
+            E(Y^2) &= 1 \\
+            E(\frac{1}{X^2}) &= \sum_x\frac{p_X(x)}{x^2} \\
+            &= \frac{q}{c^2}+\frac{1-q}{c^2} \\
+            &=\frac{1}{c^2} \\
+            Var(Z) &=\frac{1}{c^2}
+        \end{align*}
+\item Compute $Cov(Y,Z)$. [5pts] \newline \begin{align*}
+    Cov(Y,Z) &= Cov(Y,\frac{Y}{X}) = E(\frac{Y^2}{X}) - E(Y)E(\frac{Y}{x}) \\
+    &= E(Y^2)E(\frac{1}{X}) \\
+    E(\frac{1}{X}) &= \sum_x\frac{p_X(x)}{x} = \frac{2q-1}{c} \\
+    Cov(Y,\frac{Y}{X}) &= 1\times\frac{2q-1}{c} \\
+    Cov(Y,Z) &= \frac{2q-1}{c}
+\end{align*}
+\item Are $Y$ and $Z$ independent? Explain. [4pts] \newline
+        \emph{No, because $Cov(Y,Z)\neq0$ and $Z$ depends on $Y$ in the equation $Z=\frac{Y}{X}$}
+\end{enumerate}
+
+
+\section{Maximum Likelihood [20 pts]}
+\subsection{Discrete Example [10 pts]}
+Suppose we have a 4-sided die and let $X$ denote the random face that comes up on a throw. Its pmf is given by Table~\ref{tab:3.1}, where $\theta,p\in[0,1]$.
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        $x$ & 1 & 2 & 3 & 4 \\\hline
+        $p_X(x)$ & $\theta p$ & $(1-\theta)p$ & $\theta(1-p)$ & $(1-\theta)(1-p)$\\\hline
+    \end{tabular}
+    \caption{Pmf of $X$}
+    \label{tab:3.1}
+\end{table}
+Suppose we throw the die a certain number of times and observe $x_i$ $i$'s, for $i=1,\dots,4$ (i.e., face $i$ comes up $x_i$ times).
+
+\begin{enumerate}[label=(\alph*)]
+\item What is the likelihood of this experiment given $\theta$? (You should treat $p$ as a constant) [4pts] \newline \begin{align*}
+    L(\mathcal{D},\theta)&=(\theta p)^1((1-\theta)p)^2(\theta(1-p))^3((1-\theta)(1-p))^4 \\
+    &=p^3(1-p)^7\theta^4(1-\theta)^6
+\end{align*}
+\item What is the maximum likelihood estimate of $\theta$? [6pts] \newline\begin{align*}
+    L(\mathcal{D},\theta)&=p^3(1-p)^7\theta^4(1-\theta)^6 \\
+    \log(L(\mathcal{D},\theta))&=3\log p+7\log(1-p)+4\log\theta+6\log(1-\theta) \\
+    \frac{\partial}{\partial\theta}\log(L(\mathcal{D},\theta))&=\frac{4}{\theta}-\frac{6}{1-\theta} = 0 \\
+    &=4(1-\theta)-6\theta \\
+    &=4-10\theta \\
+    \theta&=\frac{2}{5}
+\end{align*}
+\end{enumerate}
+
+\subsection{Normal Distribution [10 pts]}
+Suppose we sample $n$ i.i.d. points from a Gaussian distribution with mean $\mu$ and variance $\sigma^2$. Recall that the Gaussian pdf is given by
+\[
+f(x;\mu,\sigma^2) = \frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}
+\]
+Compute the maximum likelihood estimate of parameters $\mu$ and $\sigma^2$. \newline\begin{align*}
+    L(x,\mu,\sigma^2)&=\prod_{i=1}^n f(x_i,\mu,\sigma^2) \\
+    &=\prod_{i=1}^n\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{1}{2\sigma^2}\sum_{i=1}^n(x_i-\mu)^2} \\
+    &=(2\pi)^{-n/2}(\sigma^2)^{-n/2}e^{-\frac{1}{2\sigma^2}\sum_{i=1}^n(x_i-\mu)^2} \\
+    \log(L(x,\mu,\sigma^2))&=-\frac{n}{2}\log2\pi-\frac{n}{2}\log\sigma^2-\frac{1}{2\sigma^2}\sum_{i=1}^n(x_i-\mu)^2 \\
+    \frac{\partial}{\partial\mu}\log(L(x,\mu,\sigma^2))&=\frac{\sum_{i=1}^n(x_i-\mu)^2}{\sigma^2}=0 \\
+    &=\sum_{i=1}^n(x_i-\mu)^2=0 \\
+    &=\sum_{i=1}^n x_i = n\mu \\
+    \hat{\mu}&=\frac{\sum_{i=1}^n x_i}{n}=\bar{x} \\
+    \frac{\partial^2}{\partial\mu^2}\log(L(x,\mu,\sigma^2))&=-\frac{n}{\sigma^2} \\
+    \frac{\partial^2}{\partial\mu^2}\log L_{\hat{\mu}=\bar{x}}&=-\frac{n}{\hat{x}}<0 \\
+    \frac{\partial}{\partial\sigma^2}\log(L(x,\mu,\sigma^2))&=\frac{-n}{2\sigma^2} + \frac{1}{2(\sigma^2)^2}\sum_{i=1}^n(x_i-\mu)^2 = 0 \\
+    \frac{1}{2(\sigma^2)^2}\sum_{i=1}^n(x_i-\mu)^2 &= \frac{n}{2\sigma^2} \\
+    \hat{\sigma^2}&=\frac{\sum_{i=1}^n(x_i-\mu)^2}{n} \\
+    \frac{\partial^2}{\partial\mu^2}\log(L(x,\mu,\sigma^2))&=\frac{n}{2(\sigma^2)^2}-\frac{1}{(\sigma^2)^3}\sum_{i=1}^n(x_i-\mu)^2 \\
+    \frac{\partial^2}{\partial\mu^2}\log L_{\hat{\sigma}}&=\frac{n\times n^2}{2(\sum(x_i-\bar{x})^2)^2}-\frac{\sum(x_i-\bar{x})^2)^2\times n^3}{(\sum(x_i-\bar{x})^2)^3} \\
+    &=\frac{-n^3}{2(\sum(x_i-\bar{x})^2)^2} < 0
+\end{align*}
+\emph{MLE of $\hat{\mu}$ is $\bar{x}$, MLE of $\hat{\sigma^2}$ is $\frac{\sum_{i=1}^n(x_i-\mu)^2}{n}$}
+
+\section{Information Theory [20 points]}
+\subsection{Marginal Distribution [7pts]}
+
+Suppose the joint probability distribution of two binary random variables $X$ and $Y$ are given as follows.
+% $$
+% \renewcommand*{\arraystretch}{1.3}
+% \begin{array}{|c|c|c|}\hline \backslashbox{X}{Y} & {1} & {2} \\ \hline 0 & {\frac{1}{4}} & {\frac{1}{2}} \\ \hline 1 & {\frac{1}{4}} & 0 \\ \hline\end{array}
+% $$
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline 
+        \backslashbox{$X$}{$Y$} & 1 & 2 \\\hline 
+        0 & $\frac{1}{4}$ & $\frac{1}{2}$ \\\hline
+        1 & $\frac{1}{4}$ & 0 \\
+        \hline
+    \end{tabular}
+    \label{tab:4.1}
+\end{table}
+\begin{enumerate}[label=(\alph*)]
+\item Show the marginal distribution of $X$ and $Y$, respectively. [4pts] \newline
+        $P(X=0)=\frac{3}{4}$, $P(X=1)=\frac{1}{4}$, $P(Y=1)=\frac{1}{2}$, $P(Y=2)=\frac{1}{2}$\newline\begin{align*}
+            P_X(x)&=\begin{cases}
+                \frac{3}{4} & \text{if } x=0 \\
+                \frac{1}{4} & \text{if } x=1 \\
+                0 & \text{otherwise}
+            \end{cases} \\
+            P_Y(y)&=\begin{cases}
+                \frac{1}{2} & \text{if } y=1,2 \\
+                0 & \text{otherwise}
+            \end{cases}
+        \end{align*}
+\item Find mutual information for the joint probability distribution in the previous question [3pts]\begin{align*}
+    I(X,Y)&=P_{X,Y}(0.1)\log\frac{P_{X,Y}(0.1)}{P_X(0)P_Y(1)}+P_{X,Y}(0,2)\log\frac{P_{X,Y}(0,2)}{P_X(0)P_Y(2)} \\
+    &+P_{X,Y}(1,1)\log\frac{P_{X,Y}(1,1)}{P_X(1)P_Y(1)}+P_{X,Y}(1,2)\log\frac{P_{X,Y}(1,2)}{P_X(1)P_Y(2)} \\
+    &=\frac{1}{4}\log\frac{\frac{1}{4}}{\frac{3}{4}\times\frac{1}{2}}+\frac{1}{2}\log\frac{\frac{1}{2}}{\frac{3}{4}\times\frac{1}{2}}+\frac{1}{4}\log\frac{\frac{1}{4}}{\frac{1}{4}\times\frac{1}{2}}+0 \\
+    &=0.2158
+\end{align*}
+\end{enumerate}
+
+
+
+\subsection{Mutual Information and Entropy [13pts]}
+Given a dataset as below.
+%Hashmi, H. A. S., & Asif, H. M. (2020). Early Detection and Assessment of Covid-19. Frontiers in Medicine, 7, 311.
+\begin{center}
+$$
+\renewcommand*{\arraystretch}{1.3}
+\begin{array}{|c|c|c|c|c|c|}\hline Patient & Temperature \hspace{0.5mm} (x_1) & Cough \hspace{0.5mm} (x_2) & Fatigue \hspace{0.5mm} (x_3) & Nausea \hspace{0.5mm} (x_4) & COVID? \hspace{1mm} (Y) \\ \hline 1 & <37 & Yes & Absent & Absent & Low \\ \hline 2 & 37-38 & Yes & Present & Present & High \\ \hline 3 & <37 & No & Absent & Present & Low \\ \hline 4 & 37-38 & No & Absent & Present & Low \\ \hline 5 & <37 & Yes & Present & Absent & High \\ \hline 6 & >38 & No & Absent & Absent & Low \\ \hline 7 & 37-38 & No & Absent & Present & Low\\ \hline 8 & >38 & Yes & Present & Absent & High\\ \hline 9 & <37 & No & Present & Present & High\\ \hline 10 & 37-38 & Yes & Present & Absent & High\\ \hline 11 & 37-38 & No & Absent & Absent & Low \\ \hline 12 & <37 & Yes & Present & Present & High \\ \hline 13 & >38 & Yes & Absent & Absent & High \\ \hline 14 & 37-38 & Yes & Present & Absent & High \\\hline\end{array}$$
+\end{center}
+ 
+You are analyzing the relationship between the signs and symptoms of COVID-19 for early detection and assessment to reduce the transmission rate of SARS-Cov-2. We want to determine what symptoms might affect the contraction of COVID-19. Each input has four features ($x_1$, $x_2$, $x_3$, $x_4$): Temperature (in degree Celsius), Cough, Fatigue, Nausea. The outcome is the probability to contract COVID (High vs Low), which is represented as $Y$.
+\begin{enumerate}[label=(\alph*)]
+\item Find entropy $H(Y)$. [2pts]\newline\begin{align*}
+    H(Y)=-\frac{4}{7}\log_2\frac{4}{7}-\frac{3}{7}\log_2\frac{3}{7}=0.9852
+\end{align*}
+\item Find conditional entropy $H(Y|x_1)$, $H(Y|x_4)$, respectively. [5pts]\newline\begin{align*}
+    H(Y|x_1)&=\frac{5}{14}(-\frac{2}{5}\log_2\frac{2}{5} - \frac{3}{5}\log_2\frac{3}{5}) + \frac{3}{7}(-\frac{1}{2}\log_2\frac{1}{2}-\frac{1}{2}\log_2\frac{1}{2})+\frac{3}{14}(-\frac{1}{3}\log_2\frac{1}{3} - \frac{2}{3}\log_2\frac{2}{3}) \\
+    &= 0.9721 \\
+    H(Y|x_4)&=\frac{4}{7}(-\frac{3}{8}\log_2\frac{3}{8} - \frac{5}{8}\log_2\frac{5}{8}) + \frac{3}{7}(-\frac{1}{2}\log_2\frac{1}{2} -\frac{1}{2}log_2\frac{1}{2}) \\
+    &=0.9740
+\end{align*}
+\item Find mutual information $I(x_1, Y)$ and $I(x_4, Y)$ and determine which one ($x_1$ or $x_4$) is more informative. [4pts]\newline\begin{align*}
+    I(x_1,Y)&=H(Y)-H(Y|x_1) \\
+    &=0.9852-0.9721=0.0131 \\
+    I(x_4,Y) &=H(Y)-H(Y|x_4) \\
+    &=0.9852-0.9740=0.0112
+\end{align*}
+\emph{Since $I(x_1,Y)>I(x_4,Y)$, $x_1$ is more informative.}
+\item Find joint entropy $H(Y, x_3)$. [2pts] \newline\begin{align*}
+    H(Y,x_3)&=\frac{3}{7}\log_2\frac{7}{3}+\frac{1}{14}\log_214+\frac{1}{2}\log_22 \\
+    &=1.2958
+\end{align*}
+\end{enumerate}
+
+
+\section{Bonus for All [10 pts]}
+\subsection{Mutual Information [3 pts]}
+Prove that the mutual information is symmetric, i.e., $I(X, Y) = I(Y, X)$ and $x_i \in X, y_i \in Y$
+
+  
+\subsection{Probabilities [7 pts]}
+Due to the recent social distancing requirement, Amazon is re-evaluating their delivery policies. In order to properly update their policy, Amazon is analyzing data from previous records. Delivery time can be classified as early, on time or late. Delivery distance can be classified as within 5 miles, between 5 and 10 miles and over 10 miles. From the previous records, $10\%$ of deliveries arrive early, and $50\%$ arrive on time. $60\%$ of orders are within 5 miles and $25\%$ of orders are between 5 and 10 miles. The probability for arriving on time if delivery distance is over 10 miles is 0. The probability of a shipment arriving on time and having a delivery distance between 5 and 10 miles is $15\%$. The probability for arriving early if delivery distance is within 5 miles is $20\%$.
+
+\begin{enumerate}[label=(\alph*)]
+\item What is the probability that the delivery will arrive on time if the distance is between 5 and 10 miles? [2 pts]
+\item What is the probability that the delivery will arrive on time if the distance is within 5 miles? [3 pts]
+\item What is the probability that the delivery will arrive late if the distance is within 5 miles? [2 pts]
+\end{enumerate}
+
+
+\end{document}
